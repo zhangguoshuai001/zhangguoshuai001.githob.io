@@ -1,0 +1,75 @@
+@mixin fang($size:16px){
+  width:$size;
+  height:$size;
+}
+
+@mixin center{
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin: auto;
+}
+
+@mixin left-right{
+  position: absolute;
+  left:0;
+  right:0;
+  margin: auto;
+}
+
+@mixin top-bottom{
+  position: absolute;
+  top:0;
+  bottom:0;
+  margin: auto;
+}
+
+@mixin circle($size:20px){
+  @include fang($size);
+  -webkit-border-radius:50%;
+  -moz-border-radius:50%;
+  border-radius:50%;
+}
+
+@mixin box{
+  border:1px solid #000;
+  //box-shadow: 0 0 1px #000;
+  border-radius: 10px;
+}
+$medium-size:768px;
+@mixin onm{
+  @media screen and(max-width:$medium-size){
+    @content;
+  }
+}
+$small-size:480px;
+@mixin ons{
+  @media screen and(max-width:$small-size){
+    @content;
+  }
+}
+
+$large-size:1080px;
+@mixin onl{
+  @media screen and(max-width:$large-size){
+    @content;
+  }
+}
+@mixin onx{
+  @media screen and(min-width:$large-size){
+    @content;
+  }
+}
+
+$fenbian:1080px,540px,480px,414px,412px,385px,375px,360px,320px;
+@mixin fen($bian){
+  @each $size in $fenbian{
+    @media screen and(max-width: $size){
+      html{
+        font-size: 100px*$size/$bian;
+      }
+      }
+  }
+}

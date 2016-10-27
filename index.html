@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todo">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="index.css">
+  <script src='js/jquery.js'></script>
+  <script src="js/angular.js"></script>
+  <script src="js/index.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+<div class="bigbox">
+  <!-- 左侧列表 -->
+  <div class="tree">
+    <div class="tree-top">
+      <span class="logo">iCloud</span>
+      <span class="thing">提醒事项</span>
+      <span class="thing-span icon xiala"></span>
+      <span class="add icon tianjia" ng-click="add()"></span>
+    </div>
+    <div class="plan">
+      <span class="clock icon naozhong"></span>
+      <span class="planed">已计划</span>
+    </div>
+      <!--<my-div></my-div>-->
+    <div my-div>
+      <li class="lis {{v.theme}}" ng-repeat="v in todos" data-id='{{v.id}}' ng-keyup="del(v.id)" ng-click="setcurrent(v)">
+        <div class="lislogo">
+          <span class="lis-logo"></span>
+        </div>
+        <span class="lis-name">{{v.title}}</span>
+        <input type="text" value="{{v.title}}">
+      </li>
+    </div>
+  </div>
+<!-- 右侧具体内容 -->
+<div class="box">
+  <div class="search-box">
+    <span class="search-logo icon sousuo"></span>
+    <input type="text" class="search" placeholder="搜索所有提醒">
+    <span class="search-drop icon xiala"></span>
+    <span class="search-l">|</span>
+    <span class="help icon bangzhu"></span>
+  </div>
+  <div class="content-box">
+    <div class="title">
+      <div my-option>
+        <span class="main-title">{{current.title}}</span>
+        <span class="option">选项</span>
+        <div class="new-list">
+          <div class="new-lists">
+            <div class="list-top">
+              <input type="text" class="list-input" ng-model="current.title">
+              <span class="list-color">列表颜色</span>
+              <div class="list-colors">
+                <!--v就是遍历yuan中的类-->
+                <span class="li-cir {{v}}" ng-repeat="v in yuan"><span class="inset " ng-click="change(v)"></span></span>
+              </div>
+            </div>
+            <div class="list-bottom">
+              <span class="list-del" ng-click="shanchu(current.id)">删除</span>
+              <span class="list-can">取消</span>
+              <span class="list-l">|</span>
+              <span class="list-com">完成</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="box-bottom">
+      <div class="already">
+        <span class="triangle icon daosanjiao"></span>
+        <span class="alreadys">已完成:</span>
+        <span class="already-num">{{index}}</span>
+        <span class="already-last">项</span>
+        <span class="already-del"></span>
+      </div>
+      <ul class="al-list">
+        <li class="al-item" ng-repeat="v in current.list|filter:{state:1}">
+          <span class="al-list-logo" ng-click="v.state=0;jian()"><span class="al-list-span icon yuan"></span></span>
+          <span class="al-thing">{{v.title}}</span>
+          <span class="al-del" ng-click="delete(v.id);jian()">删除</span>
+        </li>
+      </ul>
+      <ul class="list">
+        <li class="item" ng-repeat="v in current.list|filter:{state:0}">
+          <span class="list-logo" ng-click="v.state=1;jia()"></span>
+          <span class="thing">{{v.title}}</span>
+          <span class="del" ng-click="delete(v.id);jian()">删除</span>
+        </li>
+      </ul>
+      <div class="new">
+        <span class="new-list">新项目...</span>
+        <input type="text" ng-keyup="addlist($event)" class="shurus" ng-model="title" value="">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+</body>
+</html>
